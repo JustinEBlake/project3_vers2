@@ -92,7 +92,7 @@ def extract_names(company_tickers=list):
 
 ## TO DO:
 # 1) Change necessary data types from objects to float numb
-# 2) Drop the time from the date columns
+# 2) Drop the time from the date columns & And only get years for annual data
 # 3) Merge data 
 
 # Transform financial statements
@@ -232,11 +232,7 @@ def transform_names(extracted_data):
 
     return df
 
-#----------------------------------------Check Transformed Data -------------------------------------------
-financials = (transform_financials(extract_financials(companies), companies))
-balance_sheets = (transform_bs(extract_bs(companies), companies))
-stocks = (transform_stock(extract_stocks(companies), companies))
-companies = (transform_names(extract_names(companies)))
+
 
 #----------------------------------------Load the transformed data into a sqlite database------------------
 def load_all_data(company_names,financials, balance_sheets, stocks):
@@ -250,6 +246,19 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
 
     conn.commit()
     conn.close()
+
+
+
+
+
+#-----------------------------------------------------------------------------------------------------------
+financials = (transform_financials(extract_financials(companies), companies))
+balance_sheets = (transform_bs(extract_bs(companies), companies))
+stocks = (transform_stock(extract_stocks(companies), companies))
+companies = (transform_names(extract_names(companies)))
+
+
+
 
 load_all_data(companies, financials, balance_sheets, stocks)
 
