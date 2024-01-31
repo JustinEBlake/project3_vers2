@@ -238,8 +238,8 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
     conn = sqlite3.connect('company_data.sqlite')
     company_names.to_sql('Companies', conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
     financials.to_sql("Financial_Statements", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY", "date": "DATE", "total_revenue": "DOUBLE", "gross_profit": "DOUBLE", "total_expenses": "DOUBLE", "net_income": "DOUBLE"})
-    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
-    stocks.to_sql("Stocks", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
+    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
+    stocks.to_sql("Stocks", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
 
     conn.commit()
     conn.close()
@@ -256,6 +256,9 @@ companies = (transform_names(extract_names(companies)))
 
 # Load data into the sqlite db
 load_all_data(companies, financials, balance_sheets, stocks)
+
+##TO DO
+# Change column names -> remove (,)
 
 
   
