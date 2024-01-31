@@ -92,7 +92,6 @@ def extract_names(company_tickers=list):
 ## TO DO:
 # 1) Change necessary data types from objects to float numb
 # 2) Drop the time from the date columns & And only get years for annual data
-# 3) Merge data 
 
 # Transform financial statements
 def transform_financials(extracted_data, company_tickers=list):
@@ -135,6 +134,9 @@ def transform_financials(extracted_data, company_tickers=list):
 
         # Concat all dataframes into single df
         merged_df = pd.concat(financial_statements_final, axis=0, ignore_index=True)
+
+        # Remove (,) from all column names
+        merged_df.columns = ["company_symbol", "date", "total_revenue", "gross_profit", "total_expenses", "net_income"]
 
     return merged_df
 
@@ -180,6 +182,9 @@ def transform_bs(extracted_data, company_tickers=list):
         # Concat all dataframes into single df
         merged_df = pd.concat(balance_sheets_final, axis=0, ignore_index=True)
 
+        # Remove (,) from column names
+        merged_df.columns = ["company_symbol", "date", "total_debt", "shares_issued"]
+
     return merged_df
 
 # Transform Stocks
@@ -223,6 +228,9 @@ def transform_stock(extracted_data, company_tickers=list):
         # Concat all dataframes into single df
         merged_df = pd.concat(stocks_final, axis=0, ignore_index=True)
 
+        # Remove (,) from column names
+        merged_df.columns = ["company_symbol", "date", "open", "high", "low", "close", "volume"]
+
     return merged_df
 
 # Transform Company names
@@ -237,13 +245,12 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
     # load the data to the database
     conn = sqlite3.connect('company_data.sqlite')
     company_names.to_sql('Companies', conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
-    financials.to_sql("Financial_Statements", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY", "date": "DATE", "total_revenue": "DOUBLE", "gross_profit": "DOUBLE", "total_expenses": "DOUBLE", "net_income": "DOUBLE"})
-    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
-    stocks.to_sql("Stocks", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
+    financials.to_sql("Financial_Statements", conn, index=False, if_exists="replace")
+    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace")
+    stocks.to_sql("Stocks", conn, index=False, if_exists="replace")
 
     conn.commit()
     conn.close()
-
 
 
 #-----------------------------------------------------------------------------------------------------------
@@ -257,8 +264,6 @@ companies = (transform_names(extract_names(companies)))
 # Load data into the sqlite db
 load_all_data(companies, financials, balance_sheets, stocks)
 
-##TO DO
-# Change column names -> remove (,)
 
 
   
