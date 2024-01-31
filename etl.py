@@ -247,7 +247,6 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
 
 
 
-
 #-----------------------------------------------------------------------------------------------------------
     
 # Extract & Transform data
