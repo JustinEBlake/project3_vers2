@@ -6,7 +6,7 @@ import requests
 import finnhub
 
 #Assign companies to variable
-companies = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT"]
+companies = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON"]
 
 
 # ------------------------------------------Extract data using yahoo finance library-------------------------
@@ -232,17 +232,15 @@ def transform_names(extracted_data):
 
     return df
 
-
-
 #----------------------------------------Load the transformed data into a sqlite database------------------
 def load_all_data(company_names,financials, balance_sheets, stocks):
 
     # load the data to the database
     conn = sqlite3.connect('company_data.sqlite')
     company_names.to_sql('Companies', conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
-    financials.to_sql("Financial_Statements", conn, index="False", if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
-    balance_sheets.to_sql("Balance_Sheets", conn, index="False", if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
-    stocks.to_sql("Stocks", conn, index="False", if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
+    financials.to_sql("Financial_Statements", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY", "date": "DATE", "total_revenue": "DOUBLE", "gross_profit": "DOUBLE", "total_expenses": "DOUBLE", "net_income": "DOUBLE"})
+    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
+    stocks.to_sql("Stocks", conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR FOREIGN KEY"})
 
     conn.commit()
     conn.close()
@@ -250,16 +248,15 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
 
 
 
-
 #-----------------------------------------------------------------------------------------------------------
+    
+# Extract & Transform data
 financials = (transform_financials(extract_financials(companies), companies))
 balance_sheets = (transform_bs(extract_bs(companies), companies))
 stocks = (transform_stock(extract_stocks(companies), companies))
 companies = (transform_names(extract_names(companies)))
 
-
-
-
+# Load data into the sqlite db
 load_all_data(companies, financials, balance_sheets, stocks)
 
 
