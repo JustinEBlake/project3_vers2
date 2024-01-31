@@ -44,8 +44,7 @@ def extract_stocks(company_tickers=list):
 
     # Empty list to add company data
     stocks = []
-    stocks_final = []
-
+    
     # Append Company data 
     for company_ticker in company_tickers:
         company_data = yf.download(company_ticker, period="max")
