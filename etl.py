@@ -245,9 +245,9 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
     # load the data to the database
     conn = sqlite3.connect('company_data.sqlite')
     company_names.to_sql('Companies', conn, index=False, if_exists="replace", dtype= {"company_symbol": "VARCHAR PRIMARY KEY"})
-    financials.to_sql("Financial_Statements", conn, index=False, if_exists="replace")
-    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace")
-    stocks.to_sql("Stocks", conn, index=False, if_exists="replace")
+    financials.to_sql("Financial_Statements", conn, index=False, if_exists="replace", dtype={"company_symbol": "VARCHAR","date": "DATE", "total_revenue": "INTEGER", "gross_profit": "INTEGER", "total_expenses": "INTEGER", "net_income": "INTEGER", "FOREIGN KEY (company_symbol)": "REFERENCES Companies(company_symbol)" })
+    balance_sheets.to_sql("Balance_Sheets", conn, index=False, if_exists="replace", dtype={"company_symbol": "VARCHAR", "date": "DATE", "total_debt": "REAL", "shares_issued": "REAL", "FOREIGN KEY (company_symbol)": "REFERENCES Companies(company_symbol)"})
+    stocks.to_sql("Stocks", conn, index=False, if_exists="replace", dtype={"company_symbol": "VARCHAR", "date": "DATE", "open": "REAL", "high": "REAL", "low": "REAL", "close": "REAL", "volume": "INTEGER", "FOREIGN KEY (company_symbol)": "REFERENCES Companies(company_symbol)"})
 
     conn.commit()
     conn.close()
