@@ -4,6 +4,7 @@ import sqlite3
 import yfinance as yf
 import requests
 import finnhub
+import datetime as dt
 
 #Assign companies to variable
 companies = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON"]
@@ -138,6 +139,8 @@ def transform_financials(extracted_data, company_tickers=list):
         # Remove (,) from all column names
         merged_df.columns = ["company_symbol", "date", "total_revenue", "gross_profit", "total_expenses", "net_income"]
 
+        
+
     return merged_df
 
 # Transform Balance Sheets
@@ -222,6 +225,9 @@ def transform_stock(extracted_data, company_tickers=list):
         # Final dataframe
         final_df = df[["company_symbol", "date", "open", "high", "low", "close", "volume"]]
 
+        # Round float numbers
+        final_df[["open", "high", "low", "close"]] = final_df[["open", "high", "low", "close"]].round(2)
+
         # Append Dataframe to final_statements_final
         stocks_final.append(final_df)
 
@@ -253,7 +259,7 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
     conn.close()
 
 
-#-----------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------
     
 # Extract & Transform data
 financials = (transform_financials(extract_financials(companies), companies))
@@ -263,9 +269,3 @@ companies = (transform_names(extract_names(companies)))
 
 # Load data into the sqlite db
 load_all_data(companies, financials, balance_sheets, stocks)
-
-
-
-  
-    
-    
