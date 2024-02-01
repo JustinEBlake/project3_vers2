@@ -7,7 +7,7 @@ import finnhub
 import datetime as dt
 
 #Assign companies to variable
-company_tickers = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON", "DIS"]
+company_tickers = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON", "DIS", "BA","EADSY"]
 
 
 # ------------------------------------------Extract data using yahoo finance library-------------------------
