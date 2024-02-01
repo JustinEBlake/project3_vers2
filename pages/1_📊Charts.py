@@ -71,6 +71,8 @@ if join:
         st.write("Preview:")
         st.write(joined_df)
         st.divider()
+
+        
     except Exception as e:
         st.error(f"Error joining tables: {e}")
 
