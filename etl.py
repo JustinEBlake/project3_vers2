@@ -7,7 +7,7 @@ import finnhub
 import datetime as dt
 
 #Assign companies to variable
-companies = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON"]
+company_tickers = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON", "DIS"]
 
 
 # ------------------------------------------Extract data using yahoo finance library-------------------------
@@ -91,8 +91,7 @@ def extract_names(company_tickers=list):
 #------------------------------------------Transform the data from yahoo finance---------------------------
 
 ## TO DO:
-# 1) Change necessary data types from objects to float numb
-# 2) Drop the time from the date columns & And only get years for annual data
+# 1) Drop the time from the date columns & And only get years for annual data
 
 # Transform financial statements
 def transform_financials(extracted_data, company_tickers=list):
@@ -262,10 +261,10 @@ def load_all_data(company_names,financials, balance_sheets, stocks):
 #----------------------------------------------------------------------------------------------------------
     
 # Extract & Transform data
-financials = (transform_financials(extract_financials(companies), companies))
-balance_sheets = (transform_bs(extract_bs(companies), companies))
-stocks = (transform_stock(extract_stocks(companies), companies))
-companies = (transform_names(extract_names(companies)))
+financials = (transform_financials(extract_financials(company_tickers), company_tickers))
+balance_sheets = (transform_bs(extract_bs(company_tickers), company_tickers))
+stocks = (transform_stock(extract_stocks(company_tickers), company_tickers))
+company_tickers = (transform_names(extract_names(company_tickers)))
 
 # Load data into the sqlite db
-load_all_data(companies, financials, balance_sheets, stocks)
+load_all_data(company_tickers, financials, balance_sheets, stocks)
