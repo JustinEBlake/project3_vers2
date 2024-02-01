@@ -35,17 +35,22 @@ def get_columns(table_name):
     
     return columns
 
+
 # Function to execute custom SQL query
+
 def execute_query(query):
     result = pd.read_sql_query(query, conn)
     return result
 
 # Function to create query based on user selected boxes
+
 def query(table1, table1cols, table2, table2cols):
     columns = [[table1+'.'+str(col) for col in table1cols], [table2+'.'+str(col) for col in table2cols]]
     columns_str = ', '.join([','.join(col) for col in columns])
     query = f"SELECT {columns_str} FROM {table1} INNER JOIN {table2} ON {table2}.company_symbol = {table1}.company_symbol"
     return query
+
+
 
 # ------------------------------- Streamlit app -----------------------------------
 
@@ -57,13 +62,17 @@ table_2 = st.selectbox(options=tables, label="Choose Table 2")
 table_2_cols = st.multiselect(options=get_columns(table_2), label="Choose Columns from Table 2")
 
 
+
+join = st.button("Join Tables", key="join_button")
 # Button to execute
-if st.button("Join Tables"):
+if join:
     try:
         joined_df = execute_query(query(table_1, table_1_cols, table_2, table_2_cols))
         st.write("Preview:")
         st.write(joined_df)
+        st.divider()
     except Exception as e:
         st.error(f"Error joining tables: {e}")
 
 st.divider()
+
