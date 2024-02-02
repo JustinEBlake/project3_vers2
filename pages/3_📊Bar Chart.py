@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import plotly.express as px
+
+
 
 def make_chart(file,col1, col2):
     df = pd.read_csv(file)
