@@ -18,22 +18,31 @@ companies, financial_statements, balance_sheets, stocks = load_data()
 
 # Streamlit app
 
-# Layout config
-col1, col2 = st.columns([1,2])
+
 
 # Header
-st.title("Financial Database Visualization App")
+st.title("Financial Database App")
 
-# Display tables
-st.header("Companies")
-st.write(companies)
+# Gif
+st.image("misc/grinchy.gif")
 
-st.header("Financial Statements")
-st.write(financial_statements)
+# Divider
+st.divider()
 
-st.header("Balance Sheets")
-st.write(balance_sheets)
+# # Display tables
+# st.header("Companies")
+# st.write(companies)
 
-st.header("Stocks")
-st.write(stocks)
+# st.header("Financial Statements")
+# st.write(financial_statements)
+
+# st.header("Balance Sheets")
+# st.write(balance_sheets)
+
+# st.header("Stocks")
+# st.write(stocks)
+
+# Show ERD Diagram
+st.caption("ERD Diagram")
+st.image("misc/erd.png")
 
