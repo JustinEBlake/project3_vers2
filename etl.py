@@ -8,6 +8,7 @@ import datetime as dt
 
 #Assign companies to variable
 company_tickers = ["TSLA", "AAPL", "MCD", "HD", "GOOG", "MSFT", "AXON", "DIS", "BA","EADSY"]
+extra_companies = []
 
 
 # ------------------------------------------Extract data using yahoo finance library-------------------------
