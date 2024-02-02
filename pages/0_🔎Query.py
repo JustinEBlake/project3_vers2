@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from app import conn
+import sqlite3
+
+# Connect to SQlit database 
+conn = sqlite3.connect('company_data.sqlite')
 
 # Function to execute custom SQL query
 def execute_query(query):
@@ -10,6 +13,8 @@ def execute_query(query):
 
 # Streamlit app with query input
 st.title("Financial Database Query")
+
+st.image("misc/sherlock.gif")
 
 # Divider
 st.divider()
