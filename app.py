@@ -24,7 +24,7 @@ companies, financial_statements, balance_sheets, stocks = load_data()
 st.title("Financial Database App")
 
 # Gif
-st.image("misc/grinchy.gif")
+st.write("For this project, we explore the process involved in data engineering to create an effective database system with SQLite.")
 
 # Divider
 st.divider()
@@ -43,6 +43,6 @@ st.divider()
 # st.write(stocks)
 
 # Show ERD Diagram
-st.caption("ERD Diagram")
+st.caption("Entity-Relationship Diagram")
 st.image("misc/erd.png")
 
