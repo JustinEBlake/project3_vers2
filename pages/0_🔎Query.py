@@ -13,8 +13,6 @@ def execute_query(query):
 # Streamlit app with query input
 st.title("Financial Database Query")
 
-st.image("misc/sherlock.gif")
-
 # Divider
 st.divider()
 
