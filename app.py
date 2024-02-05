@@ -21,7 +21,7 @@ companies, financial_statements, balance_sheets, stocks = load_data()
 st.title("Financial Database App")
 
 # Overview
-st.write("This app allows users to read & analyze data from a SQLite Database. The Database consists of financial information from specific companies in the database. See the ERD below for reference.")
+st.write("This app allows users to read & analyze data from a SQLite Database. The Database consists of financial information from specific companies. See the ERD below for reference.")
 
 # Divider
 st.divider()
