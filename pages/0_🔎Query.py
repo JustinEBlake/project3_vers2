@@ -17,7 +17,7 @@ st.title("Financial Database Query")
 st.divider()
 
 # User input for SQL query
-query_input = st.text_area("Enter your SQL query")
+query_input = st.text_area("Enter your SQL query:")
 
 # Execute query button
 if st.button("Execute Query"):
