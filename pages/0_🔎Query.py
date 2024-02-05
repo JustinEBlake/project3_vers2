@@ -11,7 +11,7 @@ def execute_query(query):
     return result
 
 # Streamlit app with query input
-st.title("Financial Database Query")
+st.header("Query Database")
 
 # Divider
 st.divider()
