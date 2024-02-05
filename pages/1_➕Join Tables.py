@@ -81,7 +81,7 @@ st.divider()
 where_clause = st.toggle(label="Are there any conditions?")
 
 # Allows user to input specific Where Clause
-where = st.text_input(label=" Add condition below. (e.g. Financial_Statements.total_revenue > 8000000 / {table name}.{column name} = {condition})")
+where = st.text_input(label=" Add condition below. (e.g. Financial_Statements.total_revenue < 80000000000 / {table name}.{column name} = {condition})")
 
 
 
