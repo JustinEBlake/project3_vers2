@@ -46,11 +46,18 @@ def execute_query(query):
 
 # Function to create query based on user selected boxes
 
-def query(table1, table1cols, table2, table2cols):
-    columns = [[table1+'.'+str(col) for col in table1cols], [table2+'.'+str(col) for col in table2cols]]
-    columns_str = ', '.join([','.join(col) for col in columns])
-    query = f"SELECT {columns_str} FROM {table1} INNER JOIN {table2} ON {table2}.company_symbol = {table1}.company_symbol"
-    return query
+def query(table1, table1cols, table2, table2cols,where_clause=bool, where =str):
+    if where_clause == False:
+        columns = [[table1+'.'+str(col) for col in table1cols], [table2+'.'+str(col) for col in table2cols]]
+        columns_str = ', '.join([','.join(col) for col in columns])
+        query = f"SELECT {columns_str} FROM {table1} INNER JOIN {table2} ON {table2}.company_symbol = {table1}.company_symbol"
+        return query
+    else:
+        columns = [[table1+'.'+str(col) for col in table1cols], [table2+'.'+str(col) for col in table2cols]]
+        columns_str = ', '.join([','.join(col) for col in columns])
+        query = f"SELECT {columns_str} FROM {table1} INNER JOIN {table2} ON {table2}.company_symbol = {table1}.company_symbol WHERE {where}"
+        return query
+
 
 
 
@@ -58,10 +65,23 @@ def query(table1, table1cols, table2, table2cols):
 
 st.header("Join Tables")
 st.divider()
+
+# Allows Users to choose Tables and Columns from Tables
 table_1 = st.selectbox(options=tables, label="Choose Table 1")
 table_1_cols = st.multiselect(options=get_columns(table_1), label="Choose Columns from Table 1")
+
+st.divider()
+
 table_2 = st.selectbox(options=tables, label="Choose Table 2")
 table_2_cols = st.multiselect(options=get_columns(table_2), label="Choose Columns from Table 2")
+
+st.divider()
+
+# Boolen to check if user wants to add a Where Clause in query
+where_clause = st.toggle(label="Are there any conditions?")
+
+# Allows user to input specific Where Clause
+where = st.text_input(label=" Add condition below. (e.g. Financial_Statements.total_revenue > 8000000 / {table name}.{column name} = {condition})")
 
 
 
@@ -69,14 +89,12 @@ join = st.button("Join Tables", key="join_button")
 # Button to execute
 if join:
     try:
-        joined_df = execute_query(query(table_1, table_1_cols, table_2, table_2_cols))
+        joined_df = execute_query(query(table_1, table_1_cols, table_2, table_2_cols, where_clause, where))
         st.write("Preview:")
         st.write(joined_df)
         st.divider()
 
-        
     except Exception as e:
         st.error(f"Error joining tables: {e}")
 
-st.divider()
 
