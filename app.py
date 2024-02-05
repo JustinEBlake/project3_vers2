@@ -16,14 +16,11 @@ def load_data():
 # Load data
 companies, financial_statements, balance_sheets, stocks = load_data()
 
-# Streamlit app
-
-
-
+# ----------------------------Streamlit app-------------------------------
 # Header
 st.title("Financial Database App")
 
-# Gif
+# Overview
 st.write("For this project, we explore the process involved in data engineering to create an effective database system with SQLite.")
 
 # Divider
