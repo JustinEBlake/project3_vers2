@@ -4,6 +4,7 @@
 - In this project, we explore the processes involved in data engineering to create an effective database system. The focus is on collecting and storing performance data for companies based on their stock symbol. The data engineering process includes extracting information from different sources, transforming the data to make it usable, and then loading the transformed data into a SQLite database. This engineering of data aims to enhance its usefulness and accessibility for end-users.
 
 ## Instructions ([etl.py](https://github.com/JustinEBlake/project3_vers2/blob/main/etl.py))
+1. Install dependencies.
 1. Update `company_tickers` with the specific company symbols. 
 1. Run python app to create Database according to the ERD.
 
